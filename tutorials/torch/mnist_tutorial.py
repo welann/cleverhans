@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 from datasets import MNISTDataset
+# import torchvision.datasets as datasets
 
 from cleverhans.torch.attacks.fast_gradient_method import fast_gradient_method
 from cleverhans.torch.attacks.projected_gradient_descent import (
@@ -83,10 +84,12 @@ def ld_mnist():
     )
 
     # Load MNIST dataset
-    train_dataset = MNISTDataset(root="/tmp/data", transform=train_transforms)
+    train_dataset = MNISTDataset(root="./data",  transform=train_transforms)
     test_dataset = MNISTDataset(
-        root="/tmp/data", train=False, transform=test_transforms
+        root="./data",  train=False, transform=test_transforms
     )
+    # train_dataset=datasets.MNIST(root='./data', train=True, download=True, transform=test_transforms)
+    # test_dataset=datasets.MNIST(root='./data', train=False, download=True, transform=test_transforms)
 
     train_loader = torch.utils.data.DataLoader(
         train_dataset, batch_size=128, shuffle=True, num_workers=2
